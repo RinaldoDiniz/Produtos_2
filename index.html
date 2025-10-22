@@ -1,467 +1,172 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produtos Premium - Ofertas Especiais!</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #8B4513 0%, #2F1B14 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            overflow: hidden;
-        }
-        
-        .header {
-            background: linear-gradient(45deg, #FFD700, #FFA500);
-            color: #2F1B14;
-            text-align: center;
-            padding: 40px 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
-            animation: shine 3s infinite;
-        }
-        
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-        
-        .logo-section {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .logo {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-            border: 3px solid #2F1B14;
-            position: relative;
-        }
-        
-        .shopping-bag {
-            width: 50px;
-            height: 50px;
-            background: #2F1B14;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            transform: perspective(100px) rotateX(5deg);
-        }
-        
-        .shopping-bag::before {
-            content: '';
-            position: absolute;
-            top: -8px;
-            left: 8px;
-            right: 8px;
-            height: 3px;
-            background: #FFD700;
-            border-radius: 2px;
-        }
-        
-        .shopping-bag::after {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: 15px;
-            width: 8px;
-            height: 8px;
-            background: #2F1B14;
-            border-radius: 50%;
-            border: 1px solid #FFD700;
-            box-shadow: 12px 0 0 -1px #2F1B14, 12px 0 0 0 #FFD700;
-        }
-        
-        .letter-p {
-            color: #FFD700;
-            font-size: 1.8rem;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        .header-text h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            color: #2F1B14;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .header-text p {
-            font-size: 1.2rem;
-            opacity: 0.8;
-            color: #2F1B14;
-            font-weight: 500;
-        }
-        
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            padding: 40px 30px;
-        }
-        
-        .product-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            border: 2px solid transparent;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            border-color: #FFD700;
-        }
-        
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.3), transparent);
-            transition: left 0.5s;
-        }
-        
-        .product-card:hover::before {
-            left: 100%;
-        }
-        
-        .product-number {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: linear-gradient(45deg, #FFD700, #FFA500);
-            color: #2F1B14;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1rem;
-            z-index: 2;
-            border: 2px solid #8B4513;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-        
-        .product-content {
-            padding: 30px 25px;
-        }
-        
-        .product-title {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 20px;
-            line-height: 1.3;
-        }
-        
-        .product-link {
-            display: inline-block;
-            background: linear-gradient(45deg, #FFD700, #FFA500);
-            color: #2F1B14;
-            text-decoration: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            border: 2px solid #8B4513;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-        }
-        
-        .product-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #FFA500, #FFD700);
-            transition: left 0.3s ease;
-        }
-        
-        .product-link:hover::before {
-            left: 0;
-        }
-        
-        .product-link span {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .product-link:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
-        }
-        
-        .footer {
-            background: #2F1B14;
-            color: #FFD700;
-            text-align: center;
-            padding: 30px;
-        }
-        
-        .footer p {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-        
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        @media (max-width: 768px) {
-            .logo-section {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .logo {
-                margin-right: 0;
-                margin-bottom: 15px;
-            }
-            
-            .header-text h1 {
-                font-size: 2rem;
-            }
-            
-            .products-grid {
-                grid-template-columns: 1fr;
-                padding: 20px 15px;
-                gap: 20px;
-            }
-            
-            .product-content {
-                padding: 20px;
-            }
-        }
-        
-        .update-info {
-            background: rgba(255, 215, 0, 0.1);
-            border-left: 4px solid #FFD700;
-            padding: 15px 20px;
-            margin: 20px 30px;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            color: #8B4513;
-            font-weight: 500;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔥 Achadinhos da Semana</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1f005c, #5b0060, #870160, #ac255e, #ca485c);
+      background-size: 400% 400%;
+      animation: gradientShift 12s ease infinite;
+      color: #fff;
+      margin: 0;
+      text-align: center;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header {
+      padding: 60px 20px 40px;
+      background: rgba(0, 0, 0, 0.3);
+      border-bottom: 2px solid rgba(255,255,255,0.2);
+    }
+
+    .banner {
+      font-size: 2.5em;
+      font-weight: 700;
+      color: #ffd166;
+      text-shadow: 0 0 12px rgba(255, 209, 102, 0.8);
+      animation: pulseText 2s infinite;
+    }
+
+    @keyframes pulseText {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.85; }
+    }
+
+    header p {
+      color: #f8f8f8;
+      font-size: 1.1em;
+      margin-top: 12px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      padding: 40px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .product-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 25px 15px;
+      transition: all 0.4s ease;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transform: scale(0.9);
+      animation: fadeInZoom 1s forwards;
+    }
+
+    @keyframes fadeInZoom {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .product-number {
+      font-size: 1.3em;
+      color: #06d6a0;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .product-title {
+      font-size: 1.1em;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 15px;
+      text-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+
+    .product-link {
+      display: inline-block;
+      background: #ef476f;
+      color: white;
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: 0.3s;
+      animation: pulseBtn 2s infinite;
+    }
+
+    .product-link:hover {
+      background: #ffd166;
+      color: #222;
+      transform: scale(1.05);
+    }
+
+    @keyframes pulseBtn {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(239, 71, 111, 0.6); }
+      50% { box-shadow: 0 0 10px 6px rgba(239, 71, 111, 0); }
+    }
+
+    footer {
+      margin-top: 50px;
+      padding: 25px;
+      background: rgba(0, 0, 0, 0.25);
+      color: #eee;
+      border-top: 2px solid rgba(255,255,255,0.15);
+    }
+
+    footer a {
+      color: #ffd166;
+      font-weight: bold;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer a:hover {
+      color: #06d6a0;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="logo-section">
-                <div class="logo">
-                    <div class="shopping-bag">
-                        <span class="letter-p">P</span>
-                    </div>
-                </div>
-                <div class="header-text">
-                    <h1>🛍️ Produtos Premium</h1>
-                    <p>Seleções especiais com qualidade garantida!</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="update-info">
-            <strong>📅 Última atualização:</strong> Setembro 2025 | <strong>✨ Produtos fresquinhos chegando!</strong>
-        </div>
-        
-        <div class="products-grid">
 
-            <div class="product-card pulse">
-                <div class="product-number">332</div>
-                <div class="product-content">
-                    <h3 class="product-title">🔋 Carregador Portátil Salvador da Pátria</h3>
-                    <a href="https://s.shopee.com.br/2g25OQhc4x" class="product-link" target="_blank">
-                        <span>Ver Produto</span>
-                    </a>
-                </div>
-            </div>
+  <header>
+    <div class="banner">🔥 Confira os Mais Vendidos da Semana!</div>
+    <p>Escolha o seu favorito e garanta antes que acabe! ⚡</p>
+  </header>
 
-            <div class="product-card">
-                <div class="product-number">331</div>
-                <div class="product-content">
-                    <h3 class="product-title">🎅 Papai Noel Decorativo</h3>
-                    <a href="https://s.shopee.com.br/11KDDUi6y" class="product-link" target="_blank">
-                        <span>Ver Produto</span>
-                    </a>
-                </div>
-            </div>
+  <section class="products-grid">
 
-            <div class="product-card">
-                <div class="product-number">330</div>
-                <div class="product-content">
-                    <h3 class="product-title">💧 Irrigador Bucal</h3>
-                    <a href="https://s.shopee.com.br/AUkvqIkQLr" class="product-link" target="_blank">
-                        <span>Ver Produto</span>
-                    </a>
-                </div>
-            </div>
+    <div class="product-card"><div class="product-number">343</div><div class="product-title">🪑 Poltrona do Papai</div><a href="https://s.shopee.com.br/7AV6Ab5m5b" target="_blank" class="product-link">🛒 Ver Produto Agora</a></div>
+    <div class="product-card"><div class="product-number">342</div><div class="product-title">🥄 Copo Medidor Ajustável</div><a href="https://s.shopee.com.br/LeiFVeplJ" target="_blank" class="product-link">🛒 Ver Produto Agora</a></div>
+    <div class="product-card"><div class="product-number">341</div><div class="product-title">⚡ Descascador Elétrico</div><a href="https://s.shopee.com.br/3VbhNVzrit" target="_blank" class="product-link">🛒 Ver Produto Agora</a></div>
+    <div class="product-card"><div class="product-number">340</div><div class="product-title">🫧 Máquina de Bolha de Sabão</div><a href="https://s.shopee.com.br/AUlQp5PJ6V" target="_blank" class="product-link">🛒 Ver Produto Agora</a></div>
+    <div class="product-card"><div class="product-number">339</div><div class="product-title">🕷️ Homem-Aranha com Lançador de Teia</div><a href="https://s.shopee.com.br/8zwbzLLl48" target="_blank" class="product-link">🛒 Ver Produto Agora</a></div>
+    <div class="product-card"><div class="product-number">338</div><div class="product-title">🎄 Capa de Porta Decorativa Natalina</div><a href="https://s.shopee.com.br/6VFFYQNCCW" target="_blank" class="product-link">🛒 Ver Produto Agora</a></div>
+    <div class="product-card"><div class="product-number">337</div><div class="product-title">🎅 Decoração Natalina Premium</div><a href="https://s.shopee.com.br/6AcP9Qpl6K" target="_blank" class="product-link">🛒 Ver Produto Agora</a></div>
+    <div class="product-card"><div class="product-number">336</div><div class="product-title">💎 Máquina de Fazer Pulseiras</div><a href="https://s.shopee.com.br/7V7jS3PhBD" target="_blank" class="product-link">🛒 Ver Produto Agora</a></div>
+    <div class="product-card"><div class="product-number">335</div><div class="product-title">🎠 Brinquedo Giratório</div><a href="https://s.shopee.com.br/5pzSgySPth" target="_blank" class="product-link">🛒 Ver Produto Agora</a></div>
+    <div class="product-card"><div class="product-number">334</div><div class="product-title">🌈 Tinta para Cabelo Colorido</div><a href="https://s.shopee.com.br/AA8RdUndEL" target="_blank" class="product-link">🛒 Ver Produto Agora</a></div>
+    <div class="product-card"><div class="product-number">333</div><div class="product-title">💡 Luz Traseira para Patinete</div><a href="https://s.shopee.com.br/6pryEgYy7K" target="_blank" class="product-link">🛒 Ver Produto Agora</a></div>
+    <div class="product-card"><div class="product-number">332</div><div class="product-title">🔋 Power Bank Ultra Rápido</div><a href="https://s.shopee.com.br/803sREcKtw" target="_blank" class="product-link">🛒 Ver Produto Agora</a></div>
+    <div class="product-card"><div class="product-number">331</div><div class="product-title">😴 Tampão Anti-Ronco</div><a href="https://s.shopee.com.br/4q6qTuYpEE" target="_blank" class="product-link">🛒 Ver Produto Agora</a></div>
+    <div class="product-card"><div class="product-number">330</div><div class="product-title">⚽ Refe Futebol Infantil</div><a href="https://s.shopee.com.br/20mctYMGeR" target="_blank" class="product-link">🛒 Ver Produto Agora</a></div>
 
-            <div class="product-card">
-                <div class="product-number">329</div>
-                <div class="product-content">
-                    <h3 class="product-title">🍟 Fritadeira Elétrica</h3>
-                    <a href="https://s.shopee.com.br/5ffeAAC2Au" class="product-link" target="_blank">
-                        <span>Ver Produto</span>
-                    </a>
-                </div>
-            </div>
+  </section>
 
-            <div class="product-card">
-                <div class="product-number">328</div>
-                <div class="product-content">
-                    <h3 class="product-title">🐻 Urso Brinquedo Infantil</h3>
-                    <a href="https://s.shopee.com.br/7KnrqSn6y6" class="product-link" target="_blank">
-                        <span>Ver Produto</span>
-                    </a>
-                </div>
-            </div>
+  <footer>
+    💥 Quer ver mais achadinhos?  
+    <br>
+    👉 <a href="https://rinaldodiniz.github.io/Produtos_2/" target="_blank">Acesse o catálogo completo aqui!</a>
+  </footer>
 
-            <div class="product-card">
-                <div class="product-number">327</div>
-                <div class="product-content">
-                    <h3 class="product-title">🚿 Mangueira Retrátil</h3>
-                    <a href="https://s.shopee.com.br/7fQhy4g5Rx" class="product-link" target="_blank">
-                        <span>Ver Produto</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-number">326</div>
-                <div class="product-content">
-                    <h3 class="product-title">🧄 Descascador de Alho</h3>
-                    <a href="https://s.shopee.com.br/5VM94oLiwI" class="product-link" target="_blank">
-                        <span>Ver Produto</span>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <div class="product-number">325</div>
-                <div class="product-content">
-                    <h3 class="product-title">🏎️ Simulador de Carro</h3>
-                    <a href="https://s.shopee.com.br/7fQdUJTeoW" class="product-link" target="_blank">
-                        <span>Ver Produto</span>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <div class="product-number">324</div>
-                <div class="product-content">
-                    <h3 class="product-title">🚗 Porta Treco para Carro</h3>
-                    <a href="https://s.shopee.com.br/5AjF7SPN9f" class="product-link" target="_blank">
-                        <span>Ver Produto</span>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <div class="product-number">323</div>
-                <div class="product-content">
-                    <h3 class="product-title">🧲 Jogo de Imãs</h3>
-                    <a href="https://s.shopee.com.br/7fQZ85LU4s" class="product-link" target="_blank">
-                        <span>Ver Produto</span>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <div class="product-number">322</div>
-                <div class="product-content">
-                    <h3 class="product-title">🧽 Escova Flexível para Cozinha</h3>
-                    <a href="https://s.shopee.com.br/5AjCRv8bnp" class="product-link" target="_blank">
-                        <span>Ver Produto</span>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <div class="product-number">321</div>
-                <div class="product-content">
-                    <h3 class="product-title">📱 Suporte Giratório para Celular</h3>
-                    <a href="https://s.shopee.com.br/9Us9SZ5Iav" class="product-link" target="_blank">
-                        <span>Ver Produto</span>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <div class="product-number">320</div>
-                <div class="product-content">
-                    <h3 class="product-title">🥚 Ovo de Dinossauro</h3>
-                    <a href="https://s.shopee.com.br/7AUEXuz2cA" class="product-link" target="_blank">
-                        <span>Ver Produto</span>
-                    </a>
-                </div>
-            </div>
-
-        </div>
-        
-        <div class="footer">
-            <p>💎 Produtos cuidadosamente selecionados pela equipe Premium | Atualizado regularmente</p>
-        </div>
-    </div>
 </body>
 </html>
